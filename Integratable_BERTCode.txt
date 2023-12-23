@@ -28,5 +28,3 @@ inbound_tweets = df[df['inbound'] == True]
 # Get sentiment polarity using BERT for each tweet
 # Note: Depending on the size of inbound_tweets, this operation can be very time-consuming
 inbound_tweets['sentiment_polarity'] = inbound_tweets['text'].apply(get_bert_sentiment)
-
-# ... rest of your code for merging dataframes and comparing sentiment changes
