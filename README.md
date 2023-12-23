@@ -51,6 +51,7 @@ We employed several methods, including:
 - **Response Time Analysis:** Evaluating the timeliness of support.
 - **User Engagement Patterns:** Analyzing interaction frequency.
 - **Link Analysis:** Examining the use of URLs in tweets.
+- **BERT:** BERT Fine Tuning for comparison
 
 ## Findings
 Our analysis revealed diverse topics in customer support interactions, sentiment trends, response time variability, and engagement patterns, providing insights into the efficiency and effectiveness of Twitter-based customer support.
