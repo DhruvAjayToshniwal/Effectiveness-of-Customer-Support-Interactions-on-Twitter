@@ -1,0 +1,32 @@
+from transformers import AutoTokenizer, AutoModelForSequenceClassification
+from transformers import pipeline
+import pandas as pd
+
+# Load the tokenizer and model from Hugging Face
+tokenizer = AutoTokenizer.from_pretrained('nlptown/bert-base-multilingual-uncased-sentiment')
+model = AutoModelForSequenceClassification.from_pretrained('nlptown/bert-base-multilingual-uncased-sentiment')
+
+# Create a pipeline for sentiment analysis
+sentiment_pipeline = pipeline("sentiment-analysis", model=model, tokenizer=tokenizer)
+
+# Function to get sentiment score using BERT
+def get_bert_sentiment(text):
+    # Using the sentiment pipeline to process the text and get the result
+    result = sentiment_pipeline(text)
+    # The result includes a label (positive/negative) and a score
+    # Converting the 'label' to a sentiment polarity score
+    label = result[0]['label']
+    score = result[0]['score']
+    # We map the label to a polarity score, this is an example of mapping
+    sentiment_score = {'1 star': -1, '2 stars': -0.5, '3 stars': 0, '4 stars': 0.5, '5 stars': 1}
+    return sentiment_score[label] * score
+
+# Assuming df is a pandas dataframe with a column 'text' that contains the tweets
+# Filter out only the inbound tweets
+inbound_tweets = df[df['inbound'] == True]
+
+# Get sentiment polarity using BERT for each tweet
+# Note: Depending on the size of inbound_tweets, this operation can be very time-consuming
+inbound_tweets['sentiment_polarity'] = inbound_tweets['text'].apply(get_bert_sentiment)
+
+# ... rest of your code for merging dataframes and comparing sentiment changes
